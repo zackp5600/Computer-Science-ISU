@@ -14,7 +14,7 @@ public class Main {
                     System.out.println("This is a duplicate")
                 }
             }
-            if()
+            
             teamNames[i] =x;
             
         }

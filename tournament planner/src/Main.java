@@ -120,7 +120,6 @@ public class Main {
                 // if win ith team gets 3 points and the other gets 0
                 else if (rng > rng2) {
                     GroupB_pts[i] += possible_points[1];
-
                 }
             }
         }
@@ -222,14 +221,14 @@ public class Main {
                     int penalty_GroupA_largest = (int) (Math.random() * 1);
                     int penalty_GroupB_second = (int) (Math.random() * 1);
                     if (penalty_GroupA_largest != 1) {
-                        System.out.println(GroupB[second_lrgst_B] + " Wins");
                         if (penalty_GroupB_second == 1) {
+                            System.out.println(GroupB[second_lrgst_B] + " Wins");
                             index_winner1 = second_lrgst_B;
                             game_over = true;
                         }
                     } else if (penalty_GroupB_second != 1) {
-                        System.out.println(GroupA[largest_A] + " Wins!");
                         if (penalty_GroupA_largest == 1) {
+                            System.out.println(GroupA[largest_A] + " Wins!");
                             Group_A_wins = true;
                             index_winner1 = largest_A;
                             game_over = true;
@@ -275,18 +274,18 @@ public class Main {
             System.out.println("The game has ended in a tie!");
             System.out.println("The game will go to penalties!");
             // get random number of points scored in penalties
-            int pen_goals_GroupB_largest = (int) (Math.random() * 5);
-            int pen_goals_GroupA_second = (int) (Math.random() * 5);
+            int pen_goals_Winner1 = (int) (Math.random() * 5);
+            int pen_goals_winner2 = (int) (Math.random() * 5);
 
             // if groupB_largest has more points GroupB_largest wins
-            if (pen_goals_GroupB_largest > pen_goals_GroupA_second) {
+            if (pen_goals_Winner1 > pen_goals_winner2) {
                 System.out.println(GroupB[largest_B] + " Wins!");
                 GroupB_pts[largest_B] += 3;
                 GroupB_wins = true;
                 index_winner2 = largest_B;
             }
             // if the penalty points are the same then sudden death
-            else if (pen_goals_GroupB_largest == pen_goals_GroupA_second) {
+            else if (pen_goals_Winner1 == pen_goals_winner2) {
                 System.out.println("Both team have got the same number");
                 System.out.println("Now we go to sudden death");
                 System.out.println("Sudden death means that after each round if one team misses then the othere wins");
@@ -296,15 +295,15 @@ public class Main {
                     int penalty_GroupB_largest = (int) (Math.random() * 1);
                     int penalty_GroupA_second = (int) (Math.random() * 1);
                     if (penalty_GroupB_largest != 1) {
-                        System.out.println(GroupA[second_lrgst_A] + " Wins");
                         if (penalty_GroupA_second == 1) {
+                            System.out.println(GroupA[second_lrgst_A] + " Wins");
                             index_winner2 = second_lrgst_A;
                             game_over = true;
                         }
 
                     } else if (penalty_GroupA_second != 1) {
-                        System.out.println(GroupB[largest_B] + " Wins!");
                         if (penalty_GroupB_largest == 1) {
+                            System.out.println(GroupB[largest_B] + " Wins!");
                             index_winner2 = largest_B;
                             GroupB_wins = true;
                             game_over = true;
@@ -314,14 +313,212 @@ public class Main {
                 }
             }
         }
-        // if GRoupB second largest group wins
+        // if GroupB second largest group wins
         else if (rng3 < rng4) {
             System.out.println(GroupA[second_lrgst_A] + " Wins!");
             GroupA[second_lrgst_A] += 3;
             index_winner2 = second_lrgst_A;
         }
 
-        //
+        //Finals
+
+        int rng5 = (int) (Math.random() * 5); //winner of round 1 goals
+        int rng6 = (int) (Math.random() * 5); // winner of round 2 goals
+        System.out.println("The end score of the game is: " + rng5 + " to " + rng6);
+
+
+        // round 1 winner wins
+        if (rng5 > rng6) {
+            //check which Group will get the points for the win 
+            //because we already have the index for the winner of both rounds
+
+            if(Group_A_wins){
+
+                System.out.println(GroupA[index_winner1] + " Wins!");
+                GroupA_pts[index_winner1] += 3;
+                GroupA_Goals[index_winner1] += rng5;
+                GroupA_Goals_Received[index_winner1] += rng6;
+                if(GroupB_wins){
+                    GroupA_Goals[index_winner2] += rng6;
+                    GroupA_Goals_Received[index_winner2] += rng5;
+                }else{
+                    GroupB_Goals[index_winner2] += rng6;
+                    GroupB_Goals_Received[index_winner2] += rng5;
+                }
+                
+            }else{
+                System.out.println(GroupB[index_winner1] + " Wins!");
+                GroupB_pts[index_winner1] += 3;
+                GroupB_Goals[index_winner1] += rng5;
+                GroupB_Goals_Received[index_winner1] += rng6;
+                if(GroupB_wins){
+                    GroupA_Goals[index_winner2] += rng6;
+                    GroupA_Goals_Received[index_winner2] += rng5;
+                }else{
+
+                    GroupB_Goals[index_winner2] += rng6;
+                    GroupB_Goals_Received[index_winner2] += rng5;
+                }
+            }
+        }
+
+        // If the game is a tie we do penalties
+        else if (rng5 == rng6) {
+            System.out.println("The game has ended in a tie!");
+            System.out.println("The game will go to penalties!");
+            // get random number of points scored in penalties
+            int pen_goals_Winner1 = (int) (Math.random() * 5);
+            int pen_goals_winner2 = (int) (Math.random() * 5);
+
+            // if groupB_largest has more points GroupB_largest wins
+            if (pen_goals_Winner1 > pen_goals_winner2) {
+                if(Group_A_wins){
+
+                    System.out.println(GroupA[index_winner1] + " Wins!");
+                    GroupA_pts[index_winner1] += 3;
+                    GroupA_Goals[index_winner1] += rng5;
+                    GroupA_Goals_Received[index_winner1] += rng6;
+                    if(GroupB_wins){
+                        GroupA_pts[index_winner2] += 3;
+                        GroupA_Goals[index_winner2] += rng6;
+                        GroupA_Goals_Received[index_winner2] += rng5;
+                    }else{
+                        GroupB_pts[index_winner2] += 3;
+                        GroupB_Goals[index_winner2] += rng6;
+                        GroupB_Goals_Received[index_winner2] += rng5;
+                    }
+                    
+                }else{
+                    System.out.println(GroupB[index_winner1] + " Wins!");
+                    GroupB_pts[index_winner1] += 3;
+                    GroupB_Goals[index_winner1] += rng5;
+                    GroupB_Goals_Received[index_winner1] += rng6;
+                    if(GroupB_wins){
+                        GroupA_pts[index_winner2] += 3;
+                        GroupA_Goals[index_winner2] += rng6;
+                        GroupA_Goals_Received[index_winner2] += rng5;
+                    }else{
+                        GroupB_pts[index_winner2] += 3;
+                        GroupB_Goals[index_winner2] += rng6;
+                        GroupB_Goals_Received[index_winner2] += rng5;
+                    }
+                }
+            }
+            // if the penalty points are the same then sudden death
+            else if (pen_goals_Winner1 == pen_goals_winner2) {
+                System.out.println("Both team have got the same number");
+                System.out.println("Now we go to sudden death");
+                System.out.println("Sudden death means that after each round if one team misses then the othere wins");
+                boolean game_over = false;
+                while (!game_over) {
+                    // if each team makes a penalty
+                    int penalty_winner1 = (int) (Math.random() * 1);
+                    int penalty_winner2 = (int) (Math.random() * 1);
+                    if (penalty_winner1 != 1) {
+                        if (penalty_winner2 == 1) {
+                            if(!GroupB_wins){
+
+                                System.out.println(GroupA[index_winner2] + " Wins!");
+                                GroupA_pts[index_winner2] += 3;
+                                GroupA_Goals[index_winner2] += rng5;
+                                GroupA_Goals_Received[index_winner2] += rng6;
+                                if(GroupB_wins){
+                                    GroupA_pts[index_winner2] += 3;
+                                    GroupA_Goals[index_winner2] += rng6;
+                                    GroupA_Goals_Received[index_winner2] += rng5;
+                                }else{
+                                    GroupB_pts[index_winner2] += 3;
+                                    GroupB_Goals[index_winner2] += rng6;
+                                    GroupB_Goals_Received[index_winner2] += rng5;
+                                }
+                                
+                            }else{
+                                System.out.println(GroupB[index_winner1] + " Wins!");
+                                GroupB_pts[index_winner1] += 3;
+                                GroupB_Goals[index_winner1] += rng5;
+                                GroupB_Goals_Received[index_winner1] += rng6;
+                                if(Group_A_wins){
+                                    GroupA_pts[index_winner1] += 3;
+                                    GroupA_Goals[index_winner1] += rng6;
+                                    GroupA_Goals_Received[index_winner1] += rng5;
+                                }else{
+                                    GroupB_pts[index_winner1] += 3;
+                                    GroupB_Goals[index_winner1] += rng6;
+                                    GroupB_Goals_Received[index_winner1] += rng5;
+                                }
+                            }
+                            System.out.println(GroupA[index_winner2] + " Wins");
+                            game_over = true;
+                        }
+                    } else if (penalty_winner2 != 1) {
+                        if (penalty_winner1 == 1) {
+                            if(Group_A_wins){
+                                System.out.println(GroupA[index_winner1] + " Wins!");
+                                GroupA_pts[index_winner1] += 3;
+                                GroupA_Goals[index_winner1] += rng5;
+                                GroupA_Goals_Received[index_winner1] += rng6;
+                                if(Group_A_wins){
+                                    GroupA_Goals[index_winner2] += rng6;
+                                    GroupA_Goals_Received[index_winner2] += rng5;
+                                }else{
+                                    GroupB_Goals[index_winner2] += rng6;
+                                    GroupB_Goals_Received[index_winner2] += rng5;
+                                }
+                                
+                            }else{
+                                System.out.println(GroupB[index_winner1] + " Wins!");
+                                GroupB_pts[index_winner1] += 3;
+                                GroupB_Goals[index_winner1] += rng5;
+                                GroupB_Goals_Received[index_winner1] += rng6;
+                                if(Group_A_wins){
+                                    GroupA_Goals[index_winner2] += rng6;
+                                    GroupA_Goals_Received[index_winner2] += rng5;
+                                }else{
+                                    GroupB_Goals[index_winner2] += rng6;
+                                    GroupB_Goals_Received[index_winner2] += rng5;
+                                }
+                            }
+                            game_over = true;
+                        }
+                    }
+
+                }
+            }
+        }
+        // second round winner
+        else if (rng5 < rng6) {
+            if(GroupB_wins){
+                System.out.println(GroupA[index_winner1] + " Wins!");
+                GroupA_pts[index_winner1] += 3;
+                GroupA_Goals[index_winner1] += rng5;
+                GroupA_Goals_Received[index_winner1] += rng6;
+                if(Group_A_wins){
+                    GroupA_Goals[index_winner2] += rng6;
+                    GroupA_Goals_Received[index_winner2] += rng5;
+                }else{
+                    GroupB_Goals[index_winner2] += rng6;
+                    GroupB_Goals_Received[index_winner2] += rng5;
+                }
+                
+            }else{
+                System.out.println(GroupB[index_winner1] + " Wins!");
+                GroupB_pts[index_winner1] += 3;
+                GroupB_Goals[index_winner1] += rng5;
+                GroupB_Goals_Received[index_winner1] += rng6;
+                if(Group_A_wins){
+                    GroupA_Goals[index_winner2] += rng6;
+                    GroupA_Goals_Received[index_winner2] += rng5;
+                }else{
+                    GroupB_Goals[index_winner2] += rng6;
+                    GroupB_Goals_Received[index_winner2] += rng5;
+                }
+            }
+            System.out.println(GroupA[second_lrgst_A] + " Wins!");
+            GroupA[second_lrgst_A] += 3;
+            index_winner2 = second_lrgst_A;
+        }
+
+
         sc.close();
     }
 }

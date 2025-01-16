@@ -65,7 +65,7 @@ public class Main {
         }
 
         // create a array of vallues for the possible match outcomes
-        int[] possible_points = {1, 3};
+        int[] possible_points = { 1, 3 };
 
         int[] GroupA_Goals = new int[4];
         int[] GroupA_Goals_Received = new int[4];
@@ -160,11 +160,14 @@ public class Main {
         int largest_B = -1;
         int second_lrgst_B = -1;
         for (int i = 0; i < GroupB_pts.length; i++) {
-            if (largest_B == -1 || GroupB_pts[i] > GroupB_pts[largest_B] || (GroupB_pts[i] == GroupB_pts[largest_B] && GroupB_Goals[i] > GroupB_Goals[largest_B])) {
+            if (largest_B == -1 || GroupB_pts[i] > GroupB_pts[largest_B]
+                    || (GroupB_pts[i] == GroupB_pts[largest_B] && GroupB_Goals[i] > GroupB_Goals[largest_B])) {
                 // Update second largest before updating largest
                 second_lrgst_B = largest_B;
                 largest_B = i;
-            } else if (second_lrgst_B == -1 || GroupB_pts[i] > GroupB_pts[second_lrgst_B] || (GroupB_pts[i] == GroupB_pts[second_lrgst_B] && GroupB_Goals[i] > GroupB_Goals[second_lrgst_B])) {
+            } else if (second_lrgst_B == -1 || GroupB_pts[i] > GroupB_pts[second_lrgst_B]
+                    || (GroupB_pts[i] == GroupB_pts[second_lrgst_B]
+                            && GroupB_Goals[i] > GroupB_Goals[second_lrgst_B])) {
                 // Update second largest only if it's smaller than the current number
                 second_lrgst_B = i;
             }
@@ -300,7 +303,8 @@ public class Main {
             } else if (pen_goals_GroupB_largest == pen_goals_GroupA_second) {
                 System.out.println("Both team have got the same number of points in penalties");
                 System.out.println("Now we go to sudden death with penalties");
-                System.out.println("Sudden death means that after each round if one team misses a penalty then the other wins");
+                System.out.println(
+                        "Sudden death means that after each round if one team misses a penalty then the other wins");
                 boolean game_over = false;
                 while (!game_over) {
                     // if each team makes a penalty
@@ -329,26 +333,26 @@ public class Main {
         } // if GroupB second largest group wins
         else if (rng3 < rng4) {
             System.out.println(GroupA[second_lrgst_A] + " Wins!");
-            GroupA[second_lrgst_A] += 3;
+            GroupA_pts[second_lrgst_A] += 3;
             index_winner2 = second_lrgst_A;
             team2 = GroupA[second_lrgst_A];
         }
 
-        //Finals
-        int rng5 = (int) (Math.random() * 5); //winner of round 1 goals
+        // Finals
+        int rng5 = (int) (Math.random() * 5); // winner of round 1 goals
         int rng6 = (int) (Math.random() * 5); // winner of round 2 goals
         System.out.println("...............................................");
-        System.out.println("The Final game of the tournament is" + team1 + " vs " + team2);
+        System.out.println("The Final game of the tournament is " + team1 + " vs " + team2);
         System.out.println("The end score of the game is: " + rng5 + " to " + rng6);
 
         // round 1 winner wins the tournament
-        //Fix this fricking output
+        // Fix this fricking output
         if (rng5 > rng6) {
-            //check which Group will get the points for the win 
-            //because we already have the index for the winner of both rounds
+            // check which Group will get the points for the win
+            // because we already have the index for the winner of both rounds
 
             if (Group_A_wins) {
-                System.out.println("Team" + GroupA[index_winner1] + " Wins!");
+                System.out.println("Team " + GroupA[index_winner1] + " Wins!");
                 GroupA_pts[index_winner1] += 3;
                 GroupA_Goals[index_winner1] += rng5;
                 GroupA_Goals_Received[index_winner1] += rng6;
@@ -416,7 +420,23 @@ public class Main {
                     }
                 }
             } // if the penalty points are the same then sudden death
-            else if (pen_goals_Winner1 == pen_goals_winner2) {
+            else if (pen_goals_Winner1 < pen_goals_winner2) {
+                if (GroupB_wins) {
+                    System.out.println(GroupB[index_winner2] + " Wins!");
+                    GroupB_pts[index_winner2] += 3;
+                    GroupB_Goals[index_winner2] += rng5;
+                    GroupB_Goals_Received[index_winner2] += rng6;
+                    if (GroupB_wins) {
+                        GroupA_pts[index_winner1] += 3;
+                        GroupA_Goals[index_winner1] += rng6;
+                        GroupA_Goals_Received[index_winner1] += rng5;
+                    } else {
+                        GroupB_pts[index_winner1] += 3;
+                        GroupB_Goals[index_winner1] += rng6;
+                        GroupB_Goals_Received[index_winner1] += rng5;
+                    }
+                }
+            } else if (pen_goals_Winner1 == pen_goals_winner2) {
                 System.out.println("Both team have got the same number");
                 System.out.println("Now we go to sudden death");
                 System.out.println("Sudden death means that after each round if one team misses then the othere wins");
@@ -498,18 +518,19 @@ public class Main {
         } // second round winner wins the tournament
         else if (rng5 < rng6) {
             if (GroupB_wins) {
-                System.out.println(GroupB[index_winner1] + " Wins!");
-                GroupB_pts[index_winner1] += 3;
-                GroupB_Goals[index_winner1] += rng5;
-                GroupB_Goals_Received[index_winner1] += rng6;
+                System.out.println(GroupB[index_winner2] + " Wins!");
+                GroupB_pts[index_winner2] += 3;
+                GroupB_Goals[index_winner2] += rng5;
+                GroupB_Goals_Received[index_winner2] += rng6;
                 if (Group_A_wins) {
-                    GroupA_Goals[index_winner2] += rng6;
-                    GroupA_Goals_Received[index_winner2] += rng5;
+                    GroupA_Goals[index_winner1] += rng6;
+                    GroupA_Goals_Received[index_winner1] += rng5;
                 } else {
-                    GroupB_Goals[index_winner2] += rng6;
-                    GroupB_Goals_Received[index_winner2] += rng5;
+                    GroupB_Goals[index_winner1] += rng6;
+                    GroupB_Goals_Received[index_winner1] += rng5;
                 }
-                System.out.println("The Final game ended in a " + rng5 + " to " + rng6 + " win for " + GroupB[index_winner1]);
+                System.out.println(
+                        "The Final game ended in a " + rng5 + " to " + rng6 + " win for " + GroupB[index_winner2]);
 
             } else {
                 System.out.println(GroupA[index_winner2] + " Wins!");
@@ -523,14 +544,28 @@ public class Main {
                     GroupB_Goals[index_winner1] += rng6;
                     GroupB_Goals_Received[index_winner1] += rng5;
                 }
-                System.out.println("The Final game ended in a " + rng5 + " to " + rng6 + " win for " + GroupA[index_winner2]);
+                System.out.println(
+                        "The Final game ended in a " + rng5 + " to " + rng6 + " win for " + GroupA[index_winner2]);
             }
 
         }
 
-        //Champion Stage
-        System.out.println("........................");
+        // Champion Stage
+        // what does it mean include detailed math summaries for the final game
+
+        System.out.println("............................................");
         System.out.println("");
+
+        // Tournament summary
+        // total goales scored in the entire tournament
+        int total_goals = 0;
+        for (int i = 0; i < 4; i++) {
+            total_goals += GroupA_Goals[i];
+        }
+        for (int i = 0; i < 4; i++) {
+            total_goals += GroupB_Goals[i];
+        }
+        System.out.println("The total goals scored in the entire tournament is: " + total_goals);
 
         sc.close();
     }

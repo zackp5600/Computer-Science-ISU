@@ -123,6 +123,7 @@ public class Main {
                 }
             }
         }
+        System.out.println("Simulating the games...");
         System.out.println("...............");
         System.out.println("Group A points: ");
         for (int i = 0; i < 4; i++) {
@@ -209,6 +210,7 @@ public class Main {
             // get random number of points scored in penalties
             int pen_goals_GroupA_largest = (int) (Math.random() * 5);
             int pen_goals_GroupB_second = (int) (Math.random() * 5);
+            System.out.println("The penalty points is: " + pen_goals_GroupA_largest + " to " + pen_goals_GroupB_second);
 
             // if groupA_largest has more points GroupA_largest wins
             if (pen_goals_GroupA_largest > pen_goals_GroupB_second) {
@@ -223,6 +225,7 @@ public class Main {
                 index_winner1 = largest_A;
                 team1 = GroupB[second_lrgst_B];
             } else if (pen_goals_GroupA_largest == pen_goals_GroupB_second) {
+                System.out.println("................................................................................");
                 System.out.println("Both team have got the same number");
                 System.out.println("Now we go to sudden death");
                 System.out.println("Sudden death means that after each round if one team misses then the othere wins");
@@ -253,13 +256,13 @@ public class Main {
         } // if GroupB second largest group wins
         else if (rng < rng2) {
             System.out.println(GroupB[second_lrgst_B] + " Wins!");
-            GroupB[second_lrgst_B] += 3;
+            GroupB_pts[second_lrgst_B] += 3;
             index_winner1 = second_lrgst_B;
             team1 = GroupB[second_lrgst_B];
         }
 
-        // WHAT DOES IT MEAN WHEN IT SAYS ALLOW THE USERS TO SEE THE MATCH RESULTS
         // Simulating first team in group B vs second team in group A
+        System.out.println("........................................");
         System.out.println(
                 "The second game of the semi finals is: " + GroupB[largest_B] + " VS " + GroupA[second_lrgst_A]);
         int rng3 = (int) (Math.random() * 5); // goals for Group B first team
@@ -284,9 +287,11 @@ public class Main {
         else if (rng3 == rng4) {
             System.out.println("The game has ended in a tie!");
             System.out.println("The game will go to penalties!");
+            System.out.println("............................................");
             // get random number of points scored in penalties
             int pen_goals_GroupB_largest = (int) (Math.random() * 5);
             int pen_goals_GroupA_second = (int) (Math.random() * 5);
+            System.out.println("The penalty points is: " + pen_goals_GroupB_largest + " to " + pen_goals_GroupA_second);
 
             // if groupB_largest has more points GroupB_largest wins
             if (pen_goals_GroupB_largest > pen_goals_GroupA_second) {
@@ -346,7 +351,6 @@ public class Main {
         System.out.println("The end score of the game is: " + rng5 + " to " + rng6);
 
         // round 1 winner wins the tournament
-        // Fix this fricking output
         if (rng5 > rng6) {
             // check which Group will get the points for the win
             // because we already have the index for the winner of both rounds
@@ -386,7 +390,8 @@ public class Main {
             int pen_goals_Winner1 = (int) (Math.random() * 5);
             int pen_goals_winner2 = (int) (Math.random() * 5);
 
-            // if groupB_largest has more points GroupB_largest wins
+            System.out.println("The penalty points is: " + pen_goals_Winner1 + " to " + pen_goals_winner2);
+            // if winner 1 has more points winner 1 wins
             if (pen_goals_Winner1 > pen_goals_winner2) {
                 if (Group_A_wins) {
 
@@ -417,16 +422,17 @@ public class Main {
                         GroupB_pts[index_winner2] += 3;
                         GroupB_Goals[index_winner2] += rng6;
                         GroupB_Goals_Received[index_winner2] += rng5;
+
                     }
                 }
-            } // if the penalty points are the same then sudden death
+            } // if winner2 has more points winner 2 wins
             else if (pen_goals_Winner1 < pen_goals_winner2) {
                 if (GroupB_wins) {
                     System.out.println(GroupB[index_winner2] + " Wins!");
                     GroupB_pts[index_winner2] += 3;
                     GroupB_Goals[index_winner2] += rng5;
                     GroupB_Goals_Received[index_winner2] += rng6;
-                    if (GroupB_wins) {
+                    if (Group_A_wins) {
                         GroupA_pts[index_winner1] += 3;
                         GroupA_Goals[index_winner1] += rng6;
                         GroupA_Goals_Received[index_winner1] += rng5;
@@ -554,18 +560,71 @@ public class Main {
         // what does it mean include detailed math summaries for the final game
 
         System.out.println("............................................");
-        System.out.println("");
+
+        System.out.println("The leaderboard for most goals scored in Group A: ");
 
         // Tournament summary
-        // total goales scored in the entire tournament
-        int total_goals = 0;
-        for (int i = 0; i < 4; i++) {
-            total_goals += GroupA_Goals[i];
+
+        // show leaderboard of teams that have the most goals scored
+        for (int i = 0; i < GroupA.length - 1; i++) {
+            for (int j = 0; j < GroupA.length - 1 - i; j++) {
+                if (GroupA_Goals[j] > GroupA_Goals[j + 1]) {
+                    int temp = GroupA_Goals[j];
+                    GroupA_Goals[j] = GroupA_Goals[j + 1];
+                    GroupA_Goals[j + 1] = temp;
+
+                    String temperary = GroupA[j];
+                    GroupA[j] = GroupA[j + 1];
+                    GroupA[j + 1] = temperary;
+                }
+            }
         }
-        for (int i = 0; i < 4; i++) {
-            total_goals += GroupB_Goals[i];
+        for (int i = GroupA.length - 1; i > -1; i--) {
+            System.out.println(GroupA[i] + " with " + GroupA_Goals[i] + " Goals scored in the tournament");
         }
-        System.out.println("The total goals scored in the entire tournament is: " + total_goals);
+        System.out.println("..................................................");
+
+        System.out.println("The leaderboard for most goals scored in Group B: ");
+
+        for (int i = 0; i < GroupB.length - 1; i++) {
+            for (int j = 0; j < GroupB.length - 1 - i; j++) {
+                if (GroupB_Goals[j] > GroupB_Goals[j + 1]) {
+                    int temp = GroupB_Goals[j];
+                    GroupB_Goals[j] = GroupB_Goals[j + 1];
+                    GroupB_Goals[j + 1] = temp;
+
+                    String temperary = GroupB[j];
+                    GroupB[j] = GroupB[j + 1];
+                    GroupB[j + 1] = temperary;
+                }
+            }
+        }
+        for (int i = GroupB.length - 1; i > -1; i--) {
+            System.out.println(GroupB[i] + " with " + GroupB_Goals[i] + " Goals scored in the tournament");
+        }
+
+        System.out.println("..........................................");
+        System.out.println("The leaderboard for most goals scored against in GroupA: ");
+
+        for (int i = 0; i < GroupA.length - 1; i++) {
+            for (int j = 0; j < GroupA.length - 1 - i; j++) {
+                if (GroupA_Goals_Received[j] > GroupA_Goals_Received[j + 1]) {
+                    int temp = GroupA_Goals_Received[j];
+                    GroupA_Goals_Received[j] = GroupA_Goals_Received[j + 1];
+                    GroupA_Goals_Received[j + 1] = temp;
+
+                    String temperary = GroupA[j];
+                    GroupA[j] = GroupA[j + 1];
+                    GroupA[j + 1] = temperary;
+                }
+            }
+        }
+        for (int i = GroupA.length - 1; i > -1; i--) {
+            System.out.println(GroupA[i] + " with " + GroupA_Goals_Received[i] + " Goals scored in the tournament");
+        }
+
+        System.out.println("........................................");
+        System.out.println("");
 
         sc.close();
     }

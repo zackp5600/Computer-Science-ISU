@@ -620,12 +620,31 @@ public class Main {
             }
         }
         for (int i = GroupA.length - 1; i > -1; i--) {
-            System.out.println(GroupA[i] + " with " + GroupA_Goals_Received[i] + " Goals scored in the tournament");
+            System.out.println(
+                    GroupA[i] + " with " + GroupA_Goals_Received[i] + " Goals scored against in the tournament");
         }
 
         System.out.println("........................................");
-        System.out.println("");
+        System.out.println("The leader board for most goals scored against in GroupB");
 
-        sc.close();
+        for (int i = 0; i < GroupB.length - 1; i++) {
+            for (int j = 0; j < GroupB.length - 1 - i; j++) {
+                if (GroupB_Goals_Received[j] > GroupB_Goals_Received[j + 1]) {
+                    int temp = GroupB_Goals_Received[j];
+                    GroupB_Goals_Received[j] = GroupB_Goals_Received[j + 1];
+                    GroupB_Goals_Received[j + 1] = temp;
+
+                    String temperary = GroupB[j];
+                    GroupB[j] = GroupB[j + 1];
+                    GroupB[j + 1] = temperary;
+                }
+            }
+        }
+        for (int i = GroupB.length - 1; i > -1; i--) {
+            System.out.println(
+                    GroupB[i] + " with " + GroupB_Goals_Received[i] + " Goals scored against in the tournament");
+
+            sc.close();
+        }
     }
 }
